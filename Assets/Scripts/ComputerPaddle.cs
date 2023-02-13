@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class ComputerPaddle : Paddle
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Rigidbody2D ball;
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        if (ball.velocity.x > 0)
+        {
+            if (ball.position.y > transform.position.y)
+            {
+                _rigibody.AddForce(Vector2.up * speed);
+            }
+            else if (ball.position.y < transform.position.y)
+            {
+                _rigibody.AddForce(Vector2.down * speed);
+            }
+        }
+        else
+        {
+            if (transform.position.y > 0)
+            {
+                _rigibody.AddForce(Vector2.down * speed);
+            }
+            else if (transform.position.y < 0)
+            {
+                _rigibody.AddForce(Vector2.up * speed);
+            }
+        }
     }
 }
