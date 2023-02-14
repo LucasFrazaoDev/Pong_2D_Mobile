@@ -13,7 +13,7 @@ public class BouncySurface : MonoBehaviour
         if (ball != null)
         {
             Vector2 normal = target.GetContact(0).normal;
-            ball.AddForce(-normal * this.bounceStrength);
+            ball.AddForce(-normal * bounceStrength);
         }
     }
 }
