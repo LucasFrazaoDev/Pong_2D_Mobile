@@ -8,17 +8,47 @@ public class PlayerPaddle : Paddle
 
     private void Update()
     {
+        // Verifica se o jogador está usando o teclado
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             _direction = Vector2.up;
         }
-        else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             _direction = Vector2.down;
         }
         else
         {
             _direction = Vector2.zero;
+        }
+
+        // Verifica se o jogador está tocando ou deslizando na tela
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+            {
+                // Converte a posição do toque para uma direção de movimento
+                Vector2 touchPosition = touch.position;
+                float screenHalfHeight = Screen.height / 2f;
+                if (touchPosition.y > screenHalfHeight)
+                {
+                    _direction = Vector2.up;
+                }
+                else if (touchPosition.y < screenHalfHeight)
+                {
+                    _direction = Vector2.down;
+                }
+                else
+                {
+                    _direction = Vector2.zero;
+                }
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                _direction = Vector2.zero;
+            }
         }
     }
 
