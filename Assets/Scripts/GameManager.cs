@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -31,6 +32,11 @@ public class GameManager : MonoBehaviour
         _computerScoreText.text = _computerScore.ToString();
 
         ResetRound();
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void ResetRound()
