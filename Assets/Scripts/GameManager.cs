@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
 
     private void ResetRound()
     {
-        _playerPaddle.ResetPosition();
-        _computerPaddle.ResetPosition();
         ball.ResetPosition();
         ball.AddStartForce();
     }
