@@ -7,7 +7,7 @@ public class ScoringZone : MonoBehaviour
 {
     public EventTrigger.TriggerEvent scoreTrigger;
 
-    private void OnCollisionEnter2D(Collision2D target)
+    private void OnTriggerEnter2D(Collider2D target)
     {
         Ball ball = target.gameObject.GetComponent<Ball>();
 

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         _playerScore++;
         _playerScoreText.text = _playerScore.ToString();
 
-        ResetRound();
+        StartCoroutine(ResetRound());
     }
 
     public void ComputerScore()
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         _computerScore++;
         _computerScoreText.text = _computerScore.ToString();
 
-        ResetRound();
+        StartCoroutine(ResetRound());
     }
 
     public void QuitGame()
@@ -39,9 +39,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void ResetRound()
+    private IEnumerator ResetRound()
     {
         ball.ResetPosition();
+        yield return new WaitForSeconds(2f);
         ball.AddStartForce();
     }
 }

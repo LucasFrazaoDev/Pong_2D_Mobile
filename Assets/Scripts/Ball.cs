@@ -42,17 +42,20 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D target)
     {
-        if (target.gameObject.CompareTag("Wall"))
+        switch(target.gameObject.tag)
         {
+            case "Wall":
             _audioManager.PlaySound(_audioManager.WallSFX);
-        }
-        else if (target.gameObject.CompareTag("Paddle"))
-        {
+            break;
+            case "Paddle":
             _audioManager.PlaySound(_audioManager.PaddleSFX);
+            break;
         }
-        else
-        {
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ScoreZone"))
             _audioManager.PlaySound(_audioManager.ScoreSFX);
-        }
     }
 }

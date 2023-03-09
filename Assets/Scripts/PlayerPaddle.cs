@@ -8,20 +8,6 @@ public class PlayerPaddle : Paddle
 
     private void Update()
     {
-        // Verifica se o jogador está usando o teclado
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            _direction = Vector2.up;
-        }
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            _direction = Vector2.down;
-        }
-        else
-        {
-            _direction = Vector2.zero;
-        }
-
         // Verifica se o jogador está tocando ou deslizando na tela
         if (Input.touchCount > 0)
         {
