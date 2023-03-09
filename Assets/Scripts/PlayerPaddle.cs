@@ -13,28 +13,24 @@ public class PlayerPaddle : Paddle
         {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
-            {
-                // Converte a posição do toque para uma direção de movimento
-                Vector2 touchPosition = touch.position;
-                float screenHalfHeight = Screen.height / 2f;
-                if (touchPosition.y > screenHalfHeight)
-                {
-                    _direction = Vector2.up;
-                }
-                else if (touchPosition.y < screenHalfHeight)
-                {
-                    _direction = Vector2.down;
-                }
-                else
-                {
-                    _direction = Vector2.zero;
-                }
-            }
-            else if (touch.phase == TouchPhase.Ended)
+            if (touch.phase == TouchPhase.Began)
             {
                 _direction = Vector2.zero;
             }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                // Converte o deslocamento do toque para uma direção de movimento
+                Vector2 touchDeltaPosition = touch.deltaPosition;
+                _direction = new Vector2(touchDeltaPosition.x, touchDeltaPosition.y).normalized;
+            }
+            else if (touch.phase == TouchPhase.Canceled ||touch.phase == TouchPhase.Ended)
+            {
+                _direction = Vector2.zero;
+            }
+        }
+        else
+        {
+            _direction = Vector2.zero;
         }
     }
 
@@ -45,4 +41,5 @@ public class PlayerPaddle : Paddle
             _rigibody.AddForce(_direction * speed);
         }
     }
+
 }
