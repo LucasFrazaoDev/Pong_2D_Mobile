@@ -606,7 +606,19 @@ MonoBehaviour:
   m_Group: {fileID: 1035564713}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1171037119}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: OnDifficultyToggleChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &569713296
 GameObject:
@@ -693,7 +705,19 @@ MonoBehaviour:
   m_Group: {fileID: 452353308}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1171037119}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: OnHighScoreToggleChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &612865038
 GameObject:
@@ -1251,7 +1275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &810427712
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1943,6 +1967,7 @@ MonoBehaviour:
   _panelSetGame: {fileID: 1339120324}
   _difficultyToggleGroup: {fileID: 1035564713}
   _highScoreToggleGroup: {fileID: 452353308}
+  _startGameButton: {fileID: 1476503237}
 --- !u!4 &1171037120
 Transform:
   m_ObjectHideFlags: 0
@@ -1974,7 +1999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1339120325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2317,7 +2342,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1476503235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,7 +2575,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1602666475
 GameObject:
   m_ObjectHideFlags: 0

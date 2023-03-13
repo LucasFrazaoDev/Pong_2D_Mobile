@@ -18,6 +18,13 @@ public class GameManager : MonoBehaviour
     private int _playerScore;
     private int _computerScore;
 
+    private void Start()
+    {
+        int difficultySelected = PlayerPrefs.GetInt("difficultySelected");
+        int highscoreSelected = PlayerPrefs.GetInt("highscoreSelected");
+
+    }
+
     public void PlayerScore()
     {
         _playerScore++;

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class MainMenuManager : MonoBehaviour
 {
-    private int _difficultySelected;
-    private int _highScoreSelected;
-
     [Header("Panels")]
     [SerializeField] GameObject _panelMainMenu;
     [SerializeField] GameObject _panelSetGame;
@@ -20,10 +18,13 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] ToggleGroup _difficultyToggleGroup;
     [SerializeField] ToggleGroup _highScoreToggleGroup;
 
+    [Header("Start Game Button")]
+    [SerializeField] Button _startGameButton;
+
     private void Start()
     {
-        _difficultySelected = 0;
-        _highScoreSelected = 0;
+        // Verifica se os toggles estão marcados ao iniciar o jogo
+        CheckTogglesSelected();
     }
 
     #region MainMenu
@@ -56,14 +57,18 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnDifficultyToggleChanged()
     {
-        _difficultySelected = GetSelectedToggleIndex(_difficultyToggleGroup);
-        Debug.Log("Selected toggle index: " + _difficultySelected);
+        int difficultySelected = GetSelectedToggleIndex(_difficultyToggleGroup);
+        PlayerPrefs.SetInt("difficultySelected", difficultySelected);
+
+        CheckTogglesSelected();
     }
 
     public void OnHighScoreToggleChanged()
     {
-        _highScoreSelected = GetSelectedToggleIndex(_highScoreToggleGroup);
-        Debug.Log("Toggle index selecionado: " + _highScoreSelected);
+        int highScoreSelected = GetSelectedToggleIndex(_highScoreToggleGroup);
+        PlayerPrefs.SetInt("highscoreSelected", highScoreSelected);
+
+        CheckTogglesSelected();
     }
 
     private int GetSelectedToggleIndex(ToggleGroup toggleGroup)
@@ -79,6 +84,17 @@ public class MainMenuManager : MonoBehaviour
         }
 
         return 0;
+    }
+
+    private void CheckTogglesSelected()
+    {
+        // Verifica se os dois toggles estão marcados
+        bool difficultySelected = _difficultyToggleGroup.AnyTogglesOn();
+        bool highScoreSelected = _highScoreToggleGroup.AnyTogglesOn();
+        // Debug.Log("Testando método");
+
+        // Habilita ou desabilita o botão de iniciar o jogo
+        _startGameButton.interactable = difficultySelected && highScoreSelected;
     }
 
     #endregion
