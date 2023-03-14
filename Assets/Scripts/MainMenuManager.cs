@@ -73,6 +73,8 @@ public class MainMenuManager : MonoBehaviour
 
     private int GetSelectedToggleIndex(ToggleGroup toggleGroup)
     {
+        // Retorna o valor inteiro indicando o toggle selecionado
+        // 0 e 1 para dificuldade; de 0 a 2 para pontuação máxima 
         Toggle[] toggles = toggleGroup.GetComponentsInChildren<Toggle>();
 
         for (int i = 0; i < toggles.Length; i++)
