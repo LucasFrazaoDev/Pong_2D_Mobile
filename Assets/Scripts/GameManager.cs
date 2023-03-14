@@ -8,16 +8,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [Header("Game Components")]
-    public Ball ball;
+    [SerializeField] private Ball ball;
     [SerializeField] private Paddle _playerPaddle;
     [SerializeField] private Paddle _computerPaddle;
 
     [Header("UI GameObjects")]
     [SerializeField] private TextMeshProUGUI _playerScoreText;
     [SerializeField] private TextMeshProUGUI _computerScoreText;
-    [SerializeField] private GameObject _panelFinishedGame;
     [SerializeField] private TextMeshProUGUI _mensageText;
+    [SerializeField] private GameObject _panelFinishedGame;
     [SerializeField] private GameObject _panelPaused;
+    [SerializeField] private Button _pauseButton;
 
     private int _highscore; 
     private int _playerScore;
@@ -33,22 +34,19 @@ public class GameManager : MonoBehaviour
         SettingHighscoreSelected(highscoreSelected);
     }
 
-    public void PlayerScore()
+    #region UILogicMethods
+    public void ButtonPauseGame()
     {
-        _playerScore++;
-        _playerScoreText.text = _playerScore.ToString();
-
-        CheckingForWinner();
-        StartCoroutine(ResetRound());
+        Time.timeScale = 0f;
+        _isPaused = true;
+        _panelPaused.SetActive(true);
     }
 
-    public void ComputerScore()
+    public void ButtonResumeGame()
     {
-        _computerScore++;
-        _computerScoreText.text = _computerScore.ToString();
-
-        CheckingForWinner();
-        StartCoroutine(ResetRound());
+        Time.timeScale = 1f;
+        _isPaused = false;
+        _panelPaused.SetActive(false);
     }
 
     public void RestartGame()
@@ -70,19 +68,61 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene(0);
     }
+    #endregion
+
+    #region ScoreMethods
+    public void PlayerScore()
+    {
+        _playerScore++;
+        _playerScoreText.text = _playerScore.ToString();
+
+        CheckingForWinner();
+        StartCoroutine(ResetRound());
+    }
+
+    public void ComputerScore()
+    {
+        _computerScore++;
+        _computerScoreText.text = _computerScore.ToString();
+
+        CheckingForWinner();
+        StartCoroutine(ResetRound());
+    }
 
     private IEnumerator ResetRound()
     {
         ball.ResetPosition();
+
+        if (_panelFinishedGame.activeSelf)
+            yield break;
+
         yield return new WaitForSeconds(2f);
         ball.AddStartForce();
     }
 
+    private void CheckingForWinner()
+    {
+        if (_playerScore == _highscore)
+        {
+            _pauseButton.enabled = false;
+            _panelFinishedGame.SetActive(true);
+            _mensageText.text = "Congratulations, you win!!";
+        }
+        else if (_computerScore == _highscore)
+        {
+            _pauseButton.enabled = false;
+            _panelFinishedGame.SetActive(true);
+            _mensageText.text = "You lose!";
+        }
+    }
+    #endregion
+
+    #region GameSettingsMethods
     private void SettingDifficutlySelected(int difficulty)
     {
         if (difficulty == 1)
         {
-            _computerPaddle.Speed = 18f;
+            _computerPaddle.Speed = 20f;
             _computerPaddle.GetComponent<BouncySurface>().BounceStrength += 50f;
         }
     }
@@ -93,41 +133,14 @@ public class GameManager : MonoBehaviour
         {
             case 0:
                 _highscore = 5;
-            break;
+                break;
             case 1:
                 _highscore = 9;
-            break;
+                break;
             case 2:
-                _highscore = 15;
-            break;
+                _highscore = 12;
+                break;
         }
     }
-
-    private void CheckingForWinner()
-    {
-        if (_playerScore == _highscore)
-        {
-            _panelFinishedGame.SetActive(true);
-            _mensageText.text = "Congratulations, you win!!";
-        }
-        else if (_computerScore == _highscore)
-        {
-            _panelFinishedGame.SetActive(true);
-            _mensageText.text = "You lose!";
-        }
-    }
-
-    public void ButtonPauseGame()
-    {
-        Time.timeScale = 0f;
-        _isPaused = true;
-        _panelPaused.SetActive(true);
-    }
-
-    public void ButtonResumeGame()
-    {
-        Time.timeScale = 1f;
-        _isPaused = false;
-        _panelPaused.SetActive(false);
-    }
+    #endregion
 }

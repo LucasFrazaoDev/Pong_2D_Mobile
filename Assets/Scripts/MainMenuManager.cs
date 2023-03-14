@@ -27,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
         CheckTogglesSelected();
     }
 
-    #region MainMenu
+    #region MainMenuScreenMethods
     public void NewGame()
     {
         _panelMainMenu.SetActive(false);
@@ -43,7 +43,7 @@ public class MainMenuManager : MonoBehaviour
     }
     #endregion
 
-    #region GameSet
+    #region GameSetScreen&LogicMethods
     public void StartGame()
     {
         SceneManager.LoadScene(1);
