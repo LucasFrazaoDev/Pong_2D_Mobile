@@ -16,11 +16,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerScoreText;
     [SerializeField] private TextMeshProUGUI _computerScoreText;
     [SerializeField] private GameObject _panelFinishedGame;
-    [SerializeField ] private TextMeshProUGUI _mensageText;
+    [SerializeField] private TextMeshProUGUI _mensageText;
+    [SerializeField] private GameObject _panelPaused;
 
     private int _highscore; 
     private int _playerScore;
     private int _computerScore;
+    private bool _isPaused;
 
     private void Start()
     {
@@ -49,8 +51,23 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ResetRound());
     }
 
+    public void RestartGame()
+    {
+        if (_isPaused)
+        {
+            Time.timeScale = 1f;
+            _isPaused = false;
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void QuitGame()
     {
+        if (_isPaused)
+        {
+            Time.timeScale = 1f;
+            _isPaused = false;
+        }
         SceneManager.LoadScene(0);
     }
 
@@ -76,13 +93,13 @@ public class GameManager : MonoBehaviour
         {
             case 0:
                 _highscore = 5;
-                break;
-                case 1:
+            break;
+            case 1:
                 _highscore = 9;
-                break;
-                case 2:
+            break;
+            case 2:
                 _highscore = 15;
-                break;
+            break;
         }
     }
 
@@ -98,5 +115,19 @@ public class GameManager : MonoBehaviour
             _panelFinishedGame.SetActive(true);
             _mensageText.text = "You lose!";
         }
+    }
+
+    public void ButtonPauseGame()
+    {
+        Time.timeScale = 0f;
+        _isPaused = true;
+        _panelPaused.SetActive(true);
+    }
+
+    public void ButtonResumeGame()
+    {
+        Time.timeScale = 1f;
+        _isPaused = false;
+        _panelPaused.SetActive(false);
     }
 }

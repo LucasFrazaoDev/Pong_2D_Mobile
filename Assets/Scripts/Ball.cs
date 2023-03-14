@@ -17,7 +17,7 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         ResetPosition();
-        AddStartForce();
+        Invoke("AddStartForce", 1f);
     }
 
     public void AddStartForce()
