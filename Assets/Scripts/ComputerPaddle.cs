@@ -12,22 +12,22 @@ public class ComputerPaddle : Paddle
         {
             if (ball.position.y > transform.position.y)
             {
-                _rigibody.AddForce(Vector2.up * speed);
+                _rigibody.AddForce(Vector2.up * Speed);
             }
             else if (ball.position.y < transform.position.y)
             {
-                _rigibody.AddForce(Vector2.down * speed);
+                _rigibody.AddForce(Vector2.down * Speed);
             }
         }
         else
         {
             if (transform.position.y > 0)
             {
-                _rigibody.AddForce(Vector2.down * speed);
+                _rigibody.AddForce(Vector2.down * Speed);
             }
             else if (transform.position.y < 0)
             {
-                _rigibody.AddForce(Vector2.up * speed);
+                _rigibody.AddForce(Vector2.up * Speed);
             }
         }
     }

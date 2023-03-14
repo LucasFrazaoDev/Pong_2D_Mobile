@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
         int difficultySelected = PlayerPrefs.GetInt("difficultySelected");
         int highscoreSelected = PlayerPrefs.GetInt("highscoreSelected");
 
+        SettingDifficutlySelected(difficultySelected);
     }
 
     public void PlayerScore()
@@ -51,5 +52,14 @@ public class GameManager : MonoBehaviour
         ball.ResetPosition();
         yield return new WaitForSeconds(2f);
         ball.AddStartForce();
+    }
+
+    private void SettingDifficutlySelected(int difficulty)
+    {
+        if (difficulty == 1)
+        {
+            _computerPaddle.Speed = 16f;
+            _computerPaddle.GetComponent<BouncySurface>().BounceStrength += 50f;
+        }
     }
 }
